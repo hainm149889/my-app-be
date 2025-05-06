@@ -1,11 +1,17 @@
-const express = require("express");
-const app = express();
-const PORT = process.env.PORT || 3000;
+import mongoose from "mongoose";
+import dotenv from "dotenv";
 
-app.get("/", (req, res) => {
-  res.send("Hello Node.js");
-});
+dotenv.config();
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+const MONGO_URI = process.env.MONGO_URI as string;
+
+const main = async () => {
+  try {
+    await mongoose.connect(MONGO_URI);
+    console.log("✅ Connected to MongoDB Atlas");
+  } catch (error) {
+    console.error("❌ MongoDB connection error:", error);
+  }
+};
+
+main();
